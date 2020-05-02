@@ -1,3 +1,4 @@
+FROM java:8-jdk-alpine
 FROM alpine:3.4
 
 # A few problems with compiling Java from source:
@@ -31,4 +32,4 @@ RUN set -x \
 WORKDIR /
 ADD target/gs-spring-boot-0.1.0.jar /gs-spring-boot-0.1.0.jar
 EXPOSE 8080
-CMD java - jar gs-spring-boot-0.1.0.jar
+ENTRYPOINT ["java", "-jar", "gs-spring-boot-0.1.0.jar"]
