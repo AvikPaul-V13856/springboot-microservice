@@ -46,7 +46,7 @@ jobs:
       run: docker push avikatdocker/springboot:latest     
   
     - name: Deploy the package into Dev ..
-      run: docker run -d --restart=always -p 8090:8080 --name samplewebapp avikatdocker/springboot:latest
+      run: docker run -d --restart=always -p 8090:8081 --name samplewebapp avikatdocker/springboot:latest
 
     - name: Verification
       run: ifconfig
