@@ -1,0 +1,51 @@
+name: SpringBoot CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+  #  - name: Package listing...
+  #    run: ls -l 
+    - name: Update apt package
+      run: sudo apt update
+    - name: Dependency configuration (Install Maven)
+      run: sudo apt install maven
+    # - name: Testing ...
+    #   run: mvn -version
+    - name: Scanning the code..
+      run: date 
+    - name: Compile the project ..
+      run: mvn compile 
+    - name: Runs the test
+      run: mvn test
+    - name: Creating package
+      run: mvn package
+    - name: Packaging Step#1 Login To Doker hub...
+      env:
+        DOCKER_HUB: ${{ secrets.DOCKER_USERNAME }} 
+        DOCER_HUB_KEY: ${{ secrets.DOCKER_PASSWORD }} 
+      run: docker login -u $DOCKER_HUB -p $DOCER_HUB_KEY
+
+    - name: Packaging Step#2 Building Docker Image ...
+      run: docker build -t helloworld:latest -f Dockerfile .
+    - name: Packaging Step#3  Tagging the Image 
+      run: docker tag helloworld:latest avikatdocker/springboot:latest
+    - name: Securing the package (Pushing the image)
+      run: docker push avikatdocker/springboot:latest     
+  
+    - name: Deploy the package into Dev ..
+      run: docker run -d --restart=always -p 8090:8080 --name samplewebapp avikatdocker/springboot:latest
+
+    - name: Verification
+      run: ifconfig
