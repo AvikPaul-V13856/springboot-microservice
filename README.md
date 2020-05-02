@@ -20,4 +20,7 @@ This code started with the code available at this tutorial, as of 2019-09-16, 5p
 | `java -jar target/gs-spring-boot-0.1.0.jar` | If done after `mvn package`, runs the code to startup a web server.  Access it via `http://localhost:8080` on the *same machine* where the server is running.  Use CTRL/C to stop it. |
 
 
-
+Run:
+docker run -d --restart=always -p 8090:8081 --name samplewebapp avikatdocker/springboot:latest
+Browser:
+server/dns-name:8090
