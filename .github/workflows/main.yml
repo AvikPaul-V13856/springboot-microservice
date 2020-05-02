@@ -26,12 +26,12 @@ jobs:
       run: date 
     - name: Compile the project ..
       run: mvn compile 
-    - name: Runs the test
+    - name: Runnning the test ...
       run: mvn test
-    - name: Creating package
+    - name: Preparing for package
       run: mvn package
-    - name: Package listing...
-      run: ls -l   
+    # - name: Package listing...
+    #   run: ls -l   
     - name: Packaging Step#1 Login To Doker hub...
       env:
         DOCKER_HUB: ${{ secrets.DOCKER_USERNAME }} 
@@ -45,7 +45,7 @@ jobs:
     - name: Securing the package (Pushing the image)
       run: docker push avikatdocker/springboot:latest     
   
-    - name: Deploy the package into Dev ..
+    - name: Deploy the package into Dev !!!!
       run: docker run -d --restart=always -p 8090:8081 --name samplewebapp avikatdocker/springboot:latest
 
     - name: Verification
