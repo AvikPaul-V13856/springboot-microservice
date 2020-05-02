@@ -1,6 +1,5 @@
-FROM maven:3.3.3-jdk-7
-RUN mkdir --parents /usr/src/app
-ADD . /usr/src/app
-WORKDIR /usr/src/app
-RUN mvn clean install
-CMD mvn jetty:run
+FROM java:8
+WORKDIR /
+ADD target/gs-spring-boot-0.1.0.jar /gs-spring-boot-0.1.0.jar
+EXPOSE 8080
+CMD java - jar gs-spring-boot-0.1.0.jar
