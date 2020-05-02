@@ -15,8 +15,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-  #  - name: Package listing...
-  #    run: ls -l 
+ 
     - name: Update apt package
       run: sudo apt update
     - name: Dependency configuration (Install Maven)
@@ -31,6 +30,8 @@ jobs:
       run: mvn test
     - name: Creating package
       run: mvn package
+    - name: Package listing...
+      run: ls -l   
     - name: Packaging Step#1 Login To Doker hub...
       env:
         DOCKER_HUB: ${{ secrets.DOCKER_USERNAME }} 
